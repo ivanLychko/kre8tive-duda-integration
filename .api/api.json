@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "apis": [
+    {
+      "identifier": "dude-a-docs",
+      "source": "@dude-a-docs/v1.0#25h5qe9k6m74zgd71",
+      "integrity": "sha512-AbVSZCpHB8RtBeQYeGbuU35LEUbE0w+kKCrOJnxIA+XwWW3av3np5tsSYLu3mEz0LkKw2fU3ot1VlCsC9g5vAw==",
+      "installerVersion": "6.1.2"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html style="position: absolute;left: calc(50% - 260px);">
+
+<head>
+  <title>Payment for publish
+  </title>
+  <link rel="stylesheet" href="/stylesheets/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.cdnfonts.com/css/work-sans" rel="stylesheet">
+</head>
+
+<body>
+  <div id="root">
+    <div id="right-side">
+      <h1 class="preview">Publish Your Site</h1>
+      <h2 class="info">To publish your site, you need to purchase a subscription.</h2>
+      <div class="price">
+        <p>
+          <b>$ <%= (+price.unit_amount / 100).toFixed(0)%></b> / <%=price.recurring.interval%>
+        </p>
+        <small>Billed monthly</small>
+      </div>
+      <div class="plans">
+        <div class="product">
+          <form target="_blank" action="/create-checkout-session" method="POST">
+            <input type="hidden" name="product" value="<%=price.product%>" />
+            <input type="hidden" name="sessionId" value="<%= sessionId %>" />
+            <input type="hidden" name="siteName" value="<%= sitename %>" />
+
+            <button id="checkout-and-portal-button" type="submit">Continue to Checkout</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Your Payment Receipt</title>
+</head>
+
+<body
+    style="margin: 0; padding: 0; font-family: Arial, sans-serif; background-color: #ffffff; width: 630px; margin: 0 auto;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #ffffff;">
+        <tr>
+            <td align="center">
+                <table width="630" cellpadding="0" cellspacing="0" border="0" style="border-collapse: collapse;">
+                    <tr>
+                        <td style="padding: 0;">
+                            <img src="https://payments.viib.ca/viib_email_signature.jpg" alt="ViiB Header" width="600"
+                                style="display: block; width: 100%; height: auto; border: 0;" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 30px 20px 10px 20px; text-align: center;">
+                            <h2 style="margin: 0; font-size: 22px; font-weight: bold; color: #000000;">
+                                Your Payment Receipt
+                            </h2>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px 20px 30px 20px; color: #000000; font-size: 16px; line-height: 1.5;">
+                            <p style="margin: 0 0 20px 0;">Hi <%=name%>,</p>
+                            <p style="margin: 0 0 20px 0;">Thanks for subscribing! Your payment of $<%=amount%> has been
+                                    successfully processed.</p>
+                            <p style="margin: 0 0 20px 0;">
+                                Here’s your receipt:
+                            </p>
+                            <p style="margin: 0px 0 0px 20px;">
+                                <b>Plan:</b>
+                                <%=plan%>
+                            </p>
+                            <p style="margin: 0px 0 0px 20px;">
+                                <b>Amount:</b>
+                                CAD $<%=amount%>
+                            </p>
+                            <p style="margin: 0px 0 20px 20px;">
+                                <b>Date:</b>
+                                <%=date%>
+                            </p>
+                            <p style="margin: 0 0 20px 0;">
+                                You can manage your subscription or view your billing history anytime in your account
+                                dashboard.
+                            </p>
+                            <p style="margin: 0 0 5px 0; font-weight: bold;">The ViiB Team</p>
+                            <p style="margin: 0;">info@viib.ca</p>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td style="height: 40px;"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

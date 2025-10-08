@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Category Editor</title>
+    <link rel="stylesheet" href="/stylesheets/styleCE.css" />
+  </head>
+  <body>
+    <h1>Editor Duda categories</h1>
+    <input type="text" id="search-tpl" placeholder="Search tpl.." />
+    <div id="templates">
+      <%for(let key in templates) {%>
+      <div class="tpl" data-name="<%=templates[key].template_name%>" data-id="<%=templates[key].template_id%>">
+        <p><%=templates[key].template_name%></p>
+        <div
+          style="
+            background-image: url('<%=templates[key].desktop_thumbnail_url%>');
+          "
+        ></div>
+      </div>
+      <%}%>
+    </div>
+
+    <div id="categories">
+      <div class="category">
+        <div class="form-new-category">
+          <input
+            id="name-new-category"
+            placeholder="Category name"
+            type="text"
+          />
+          <button id="submit-new-category">Add new</button>
+        </div>
+      </div>
+      <%for(let key in categories){%>
+      <div class="category" data-id="<%=categories[key]._id%>">
+        <p><%=categories[key].name%> <button class="rm">Del</button></p>
+        <div class="ctg-wrapper">
+          <% for(let keyTpl in categories[key].templates) { const tpl =
+          templates.find(item => item.template_id ==
+          categories[key].templates[keyTpl]); %>
+          <div class="tpl" data-id="<%=tpl.template_id%>">
+            <button>Remove</button>
+            <p><%=tpl.template_name%></p>
+            <div
+              style="background-image: url('<%=tpl.desktop_thumbnail_url%>')"
+            ></div>
+          </div>
+          <%}%>
+        </div>
+      </div>
+      <%}%>
+    </div>
+
+    <script src="/javascripts/mainCE.js"></script>
+  </body>
+</html>

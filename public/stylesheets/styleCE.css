@@ -1,0 +1,167 @@
+html *,
+body * {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+h1 {
+    text-align: center;
+    margin: 15px;
+}
+
+#templates {
+    border: 2px black solid;
+    border-radius: 25px;
+    width: calc(100% - 44px);
+    height: 250px;
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 10px;
+    overflow-y: scroll;
+    justify-content: center;
+    border-right: none;
+}
+
+.tpl.hidden {
+    display: none;
+}
+
+.tpl div {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: top center;
+}
+
+#categories .category p button:hover {
+    color: red;
+    background-color: white;
+}
+
+#categories .category p button {
+    position: absolute;
+    right: 12px;
+    color: white;
+    background-color: red;
+    padding: 2px 6px;
+    outline: 0px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.tpl p {
+    text-align: center;
+}
+
+.tpl.drag {
+    position: absolute;
+    z-index: 5;
+}
+
+.tpl {
+    width: 140px;
+    height: 200px;
+    margin: 15px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid black;
+    border-radius: 25px;
+    padding: 10px;
+
+}
+
+#categories .category p {
+    border-bottom: 1px solid black;
+    height: auto;
+    text-align: center;
+    font-size: 17px;
+    font-weight: 600;
+    position: relative;
+    padding: 5px;
+}
+
+#categories .category .ctg-wrapper.active {
+    background-color: rgba(107, 107, 241, 0.548);
+    border-radius: 0px 0px 20px 20px;
+}
+
+#categories .category .ctg-wrapper .tpl button:hover {
+    background-color: white;
+    color: red;
+}
+
+#categories .category .ctg-wrapper .tpl button {
+    margin: 0 auto;
+    display: block;
+    background-color: red;
+    color: white;
+    padding: 2px 11px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#categories .category .ctg-wrapper .tpl {
+    width: 100px;
+    height: 150px;
+    cursor: auto;
+}
+
+#categories .category .ctg-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    overflow-y: auto;
+    height: calc(100% - 31px);
+}
+
+#categories .category .form-new-category input {
+    font-size: 18px;
+    padding: 5px;
+}
+
+#categories .category .form-new-category button {
+    margin-left: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+#categories .category .form-new-category {
+    display: flex;
+    margin-top: calc(50% + 42px);
+    justify-content: center;
+}
+
+#categories .category {
+    height: calc(100% - 22px);
+    border: 1px solid;
+    width: 330px;
+    border-radius: 20px;
+    z-index: 9999;
+    overflow: hidden;
+    position: relative;
+    margin-left: 10px;
+}
+
+#categories {
+    display: flex;
+    width: calc(100% - 44px);
+    margin: 5px;
+    border: 2px solid black;
+    height: 470px;
+    overflow-x: scroll;
+    border-radius: 25px;
+    border-bottom: none;
+    padding: 15px;
+}
+
+#search-tpl {
+    margin: 0 auto;
+    display: block;
+    padding: 5px;
+}

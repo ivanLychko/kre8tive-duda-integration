@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Payment for publish
+    </title>
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.cdnfonts.com/css/work-sans" rel="stylesheet">
+
+</head>
+
+<body>
+    <div id="root">
+        <div id="right-side">
+            <h2 style="margin-top: 40px;" class="preview"><%=text%></h2>
+            <div class="price">
+                <p>
+                    <b>$ <%= (+priceFrom.unit_amount / 100).toFixed(0)%></b>/<%=priceFrom.recurring.interval.substr(0,2)%> <b>&rarr;</b>
+                        <b>$ <%= (+priceTo.unit_amount / 100).toFixed(0)%></b>/<%=priceTo.recurring.interval.substr(0,2)%>
+                </p>
+                <small>Billed monthly</small>
+            </div>
+            <br>
+            <h2 class="info">Your plan will be prorated based on your current billing cycle.</h2>
+            <div class="plans">
+                <button id="agree-to-update-plan" type="button">ACCEPT & PUBLISH</button>
+            </div>
+        </div>
+
+        <script>
+            document.querySelector('#agree-to-update-plan').addEventListener('click', async (e) => {
+                const res = await fetch('/update-plan', {
+                    method: 'POST',
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ sitename: "<%=sitename%>" })
+                })
+                    .then(res => res.text())
+                    .catch(console.error);
+
+                if (res == 'success') {
+                    document.querySelector('#right-side').innerHTML = `
+                <h1 style="margin-top: 100px;" class="preview">Congratulations</h1>
+                <h4 class="info">Your site is published and your plan has been updated!</h4>
+                <br>
+                <p>View Live Site: <a href="<%=domain%>"><%=domain%></a></p>
+                `;
+                } else {
+                    document.querySelector('#right-side').innerHTML = `
+                <h1 style="margin-top: 120px;" class="preview">Something is wrong. Please try again later.</h1>
+                `;
+                }
+
+
+            });
+
+        </script>
+</body>
+
+</html>

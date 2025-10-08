@@ -1,0 +1,146 @@
+[
+    {
+        "id": "prod_LX9jzdWu5EBWZ6",
+        "infinity": false,
+        "pro": false,
+        "lite": false,
+        "shop": false,
+        "plus": false,
+        "period": "month"
+    },
+    {
+        "id": "prod_T0rmyXp9qCng1X",
+        "infinity": false,
+        "pro": false,
+        "lite": false,
+        "shop": false,
+        "plus": false,
+        "period": "year"
+    },
+    {
+        "id": "prod_T0rq5gqhfAzpoo",
+        "infinity": false,
+        "pro": false,
+        "lite": false,
+        "shop": false,
+        "plus": true,
+        "period": "month"
+    },
+    {
+        "id": "prod_T0rpKmo7iWqi9F",
+        "infinity": false,
+        "pro": false,
+        "lite": false,
+        "shop": false,
+        "plus": true,
+        "period": "year"
+    },
+    {
+        "id": "prod_LX9kDl9idKb4MX",
+        "infinity": false,
+        "pro": false,
+        "lite": true,
+        "shop": true,
+        "plus": true,
+        "period": "month"
+    }, 
+    {
+        "id": "prod_T0sQIGZ9XBrLx9",
+        "infinity": false,
+        "pro": false,
+        "lite": true,
+        "shop": true,
+        "plus": true,
+        "period": "year"
+    }, 
+    {
+        "id": "prod_T0s0nygZM5LNwN",
+        "infinity": false,
+        "pro": false,
+        "lite": true,
+        "shop": true,
+        "plus": false,
+        "period": "month"
+    },  
+    {
+        "id": "prod_T0sPw61mlyUYBQ",
+        "infinity": false,
+        "pro": false,
+        "lite": true,
+        "shop": true,
+        "plus": false,
+        "period": "year"
+    },
+    {
+        "id": "prod_T0sSLUVvN5snEW",
+        "infinity": false,
+        "pro": true,
+        "lite": false,
+        "shop": true,
+        "plus": false,
+        "period": "month"
+    },
+    {
+        "id": "prod_T0sSKtj219Gpcs",
+        "infinity": false,
+        "pro": true,
+        "lite": false,
+        "shop": true,
+        "plus": false,
+        "period": "year"
+    },
+    {
+        "id": "prod_T0sTWUe7mDu5ZC",
+        "infinity": false,
+        "pro": true,
+        "lite": false,
+        "shop": true,
+        "plus": true,
+        "period": "month"
+    },
+    {
+        "id": "prod_T0sUFphy5YuxJe",
+        "infinity": false,
+        "pro": true,
+        "lite": false,
+        "shop": true,
+        "plus": true,
+        "period": "year"
+    }, 
+    {
+        "id": "prod_T0sU9chgpMRxjr",
+        "infinity": true,
+        "pro": false,
+        "lite": false,
+        "shop": true,
+        "plus": false,
+        "period": "month"
+    },
+    {
+        "id": "prod_T0sVB6H7qvV6Qf",
+        "infinity": true,
+        "pro": false,
+        "lite": false,
+        "shop": true,
+        "plus": false,
+        "period": "year"
+    },  
+    {
+        "id": "prod_T0sVENN84DoBa1",
+        "infinity": true,
+        "pro": false,
+        "lite": false,
+        "shop": true,
+        "plus": true,
+        "period": "month"
+    },   
+    {
+        "id": "prod_T0sWjeEpfQhz5v",
+        "infinity": true,
+        "pro": false,
+        "lite": false,
+        "shop": true,
+        "plus": true,
+        "period": "year"
+    }
+]
