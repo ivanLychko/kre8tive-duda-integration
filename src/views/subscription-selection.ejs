@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Choose Your Subscription</title>
     <link rel="stylesheet" href="/stylesheets/style.css" />
@@ -11,6 +12,40 @@
             max-width: 600px;
             margin: 0 auto;
             padding: 20px;
+            position: relative;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        .back-button:hover {
+            background-color: #f0f0f0;
+            transform: scale(1.1);
+        }
+
+        .back-icon {
+            width: 20px;
+            height: 20px;
+            fill: #333;
+            transition: fill 0.3s ease;
+        }
+
+        .back-button:hover .back-icon {
+            fill: #007bff;
         }
 
         .plan-type {
@@ -49,9 +84,8 @@
         }
 
         .pricing-options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            display: flex;
+            justify-content: center;
             margin-top: 20px;
         }
 
@@ -62,6 +96,50 @@
             text-align: center;
             transition: all 0.3s ease;
             cursor: pointer;
+            position: relative;
+            max-width: 400px;
+            width: 100%;
+        }
+
+        .billing-switcher {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #666;
+        }
+
+        .switcher-toggle {
+            position: relative;
+            width: 40px;
+            height: 20px;
+            background-color: #ccc;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .switcher-toggle.active {
+            background-color: #007bff;
+        }
+
+        .switcher-slider {
+            position: absolute;
+            top: 2px;
+            left: 2px;
+            width: 16px;
+            height: 16px;
+            background-color: white;
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .switcher-toggle.active .switcher-slider {
+            transform: translateX(20px);
         }
 
         .pricing-card:hover {
@@ -141,6 +219,11 @@
 <body>
     <div id="root">
         <div class="subscription-container">
+            <button class="back-button" onclick="goBack()" title="Go back">
+                <svg class="back-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                </svg>
+            </button>
             <h1 class="preview">Publish Your Site</h1>
             <h2 class="info">Choose your subscription plan to publish your website.</h2>
 
@@ -171,6 +254,9 @@
     </div>
 
     <script>
+        function goBack() {
+            window.history.back();
+        }
 
         let currentPrices = {
             monthly: <%- JSON.stringify(monthlyPrices || []) %>,
@@ -214,55 +300,85 @@
                 return;
             }
 
-            let html = '';
+            // Get the first available price (monthly or yearly)
+            const monthlyPrice = currentPrices.monthly.length > 0 ? currentPrices.monthly[0] : null;
+            const yearlyPrice = currentPrices.yearly.length > 0 ? currentPrices.yearly[0] : null;
 
-            // Monthly option
-            if (currentPrices.monthly.length > 0) {
-                const monthlyPrice = currentPrices.monthly[0];
-                html += `
-          <div class="pricing-card ${selectedPeriod === 'month' ? 'selected' : ''}" onclick="selectPeriod('month')">
-            <h3>Monthly</h3>
-            <div class="price">$${(monthlyPrice.unit_amount / 100).toFixed(0)}</div>
-            <div class="period">per month</div>
-            <ul class="features">
-              <li>${getPlanName(monthlyPrice)}</li>
-              <li>${includePlus ? 'Plus features included' : 'Standard features'}</li>
-              <li>Cancel anytime</li>
-            </ul>
-            <button class="subscribe-btn" onclick="subscribe('${monthlyPrice.product}', 'month')">
-              Subscribe Monthly
-            </button>
-          </div>
-        `;
+            if (!monthlyPrice && !yearlyPrice) {
+                container.innerHTML = '<div class="loading">No pricing options available for your configuration.</div>';
+                return;
             }
 
-            // Yearly option
-            if (currentPrices.yearly.length > 0) {
-                const yearlyPrice = currentPrices.yearly[0];
-                const monthlyEquivalent = (yearlyPrice.unit_amount / 100 / 12).toFixed(0);
-                html += `
-          <div class="pricing-card ${selectedPeriod === 'year' ? 'selected' : ''}" onclick="selectPeriod('year')">
-            <h3>Yearly</h3>
-            <div class="price">$${(yearlyPrice.unit_amount / 100).toFixed(0)}</div>
-            <div class="period">per year ($${monthlyEquivalent}/month)</div>
-            <ul class="features">
-              <li>${getPlanName(yearlyPrice)}</li>
-              <li>${includePlus ? 'Plus features included' : 'Standard features'}</li>
-              <li>Cancel anytime</li>
-            </ul>
-            <button class="subscribe-btn" onclick="subscribe('${yearlyPrice.product}', 'year')">
-              Subscribe Yearly
-            </button>
-          </div>
-        `;
-            }
+            // Use the available price to get plan name
+            const currentPrice = selectedPeriod === 'month' ? monthlyPrice : yearlyPrice;
+            const planName = getPlanName(currentPrice);
+
+            let html = `
+                <div class="pricing-card">
+                    <div class="billing-switcher">
+                        <div class="switcher-toggle ${selectedPeriod === 'year' ? 'active' : ''}" onclick="toggleBillingPeriod(event)">
+                            <div class="switcher-slider"></div>
+                        </div>
+                        <span>Annual</span>
+                    </div>
+                    <h3>${planName}</h3>
+                    <div class="price">${getCurrentPrice()}</div>
+                    <div class="period">${getCurrentPeriod()}</div>
+                    <ul class="features">
+                        <li>${planName}</li>
+                        <li>${includePlus ? 'Plus features included' : 'Standard features'}</li>
+                        <li>Cancel anytime</li>
+                    </ul>
+                    <button class="subscribe-btn" onclick="subscribeToCurrentPlan()">
+                        Subscribe ${selectedPeriod === 'month' ? 'Monthly' : 'Yearly'}
+                    </button>
+                </div>
+            `;
 
             container.innerHTML = html;
         }
 
-        function selectPeriod(period) {
-            selectedPeriod = period;
+        function toggleBillingPeriod(event) {
+            event.stopPropagation(); // Prevent card click
+            selectedPeriod = selectedPeriod === 'month' ? 'year' : 'month';
             renderPricingOptions();
+        }
+
+        function getCurrentPrice() {
+            const monthlyPrice = currentPrices.monthly.length > 0 ? currentPrices.monthly[0] : null;
+            const yearlyPrice = currentPrices.yearly.length > 0 ? currentPrices.yearly[0] : null;
+
+            if (selectedPeriod === 'month' && monthlyPrice) {
+                return `$${(monthlyPrice.unit_amount / 100).toFixed(0)}`;
+            } else if (selectedPeriod === 'year' && yearlyPrice) {
+                return `$${(yearlyPrice.unit_amount / 100).toFixed(0)}`;
+            }
+
+            return 'N/A';
+        }
+
+        function getCurrentPeriod() {
+            if (selectedPeriod === 'month') {
+                return 'per month';
+            } else {
+                const yearlyPrice = currentPrices.yearly.length > 0 ? currentPrices.yearly[0] : null;
+                if (yearlyPrice) {
+                    const monthlyEquivalent = (yearlyPrice.unit_amount / 100 / 12).toFixed(0);
+                    return `per year ($${monthlyEquivalent}/month)`;
+                }
+                return 'per year';
+            }
+        }
+
+        function subscribeToCurrentPlan() {
+            const monthlyPrice = currentPrices.monthly.length > 0 ? currentPrices.monthly[0] : null;
+            const yearlyPrice = currentPrices.yearly.length > 0 ? currentPrices.yearly[0] : null;
+
+            if (selectedPeriod === 'month' && monthlyPrice) {
+                subscribe(monthlyPrice.product, 'month');
+            } else if (selectedPeriod === 'year' && yearlyPrice) {
+                subscribe(yearlyPrice.product, 'year');
+            }
         }
 
         function getPlanName(price) {
