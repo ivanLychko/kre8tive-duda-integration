@@ -174,11 +174,14 @@
             list-style: none;
             padding: 0;
             margin: 15px 0;
+            column-count: 2;
+            column-gap: 24px;
         }
 
         .features li {
             padding: 5px 0;
             color: #555;
+            break-inside: avoid;
         }
 
         .features li:before {
@@ -228,19 +231,6 @@
             <h1 class="preview">Publish Your Site</h1>
             <h2 class="info">Choose your subscription plan to publish your website.</h2>
 
-            <div class="plan-type">
-                <h2>
-                    <% if (subscriptionInfo.type==='infinity' ) { %>
-                        Elite Plan
-                        <% } else if (subscriptionInfo.type==='pro' ) { %>
-                            Advance Plan
-                            <% } else { %>
-                                Standard Plan
-                                <% } %>
-                </h2>
-                <p>Based on your website configuration</p>
-            </div>
-
             <div class="plus-option">
                 <label>
                     <input type="checkbox" id="plusCheckbox" onchange="togglePlus()">
@@ -260,8 +250,8 @@
         }
 
         let currentPrices = {
-            monthly: <%- JSON.stringify(monthlyPrices || []) %>,
-            yearly: <%- JSON.stringify(yearlyPrices || []) %>
+            monthly: <% - JSON.stringify(monthlyPrices || []) %>,
+            yearly: <% - JSON.stringify(yearlyPrices || []) %>
         };
 
         let selectedPeriod = 'month';
