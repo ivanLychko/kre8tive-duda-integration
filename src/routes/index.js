@@ -1,5 +1,5 @@
 const express = require('express');
-const { hash, getDataWithCahce, determineSubscriptionType, getAvailableProducts, getStripePrices } = require('../functions');
+const { hash, getDataWithCache, determineSubscriptionType, getAvailableProducts, getStripePrices } = require('../functions');
 const DudaWorker = require('../Duda');
 const cors = require('cors');
 const Sites = require('../Models/Sites');
