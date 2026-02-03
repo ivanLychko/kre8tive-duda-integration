@@ -17,7 +17,7 @@
     <p><strong>Сайт:</strong>
         <%= siteName %>
     </p>
-    <% if (domain) { %>
+    <% if (typeof domain !=='undefined' && domain) { %>
         <p><strong>Домен:</strong>
             <%= domain %>
         </p>
