@@ -81,17 +81,17 @@ class Mailer {
 
     async notifyAdminNewSite(data) {
         if (!ADMIN_EMAIL) return;
-        return this.sendByTpl(ADMIN_EMAIL, '[ViiB] Новый сайт создан', 'admin/newSite', data);
+        return this.sendByTpl(ADMIN_EMAIL, '[ViiB] New website created', 'admin/newSite', data);
     }
 
     async notifyAdminSubscription(data) {
         if (!ADMIN_EMAIL) return;
-        return this.sendByTpl(ADMIN_EMAIL, '[ViiB] Оформлена подписка', 'admin/subscription', data);
+        return this.sendByTpl(ADMIN_EMAIL, '[ViiB] Subscription completed', 'admin/subscription', data);
     }
 
     async notifyAdminExpired(data) {
         if (!ADMIN_EMAIL) return;
-        return this.sendByTpl(ADMIN_EMAIL, '[ViiB] Истекла подписка', 'admin/expired', data);
+        return this.sendByTpl(ADMIN_EMAIL, '[ViiB] Subscription expired', 'admin/expired', data);
     }
 }
 
