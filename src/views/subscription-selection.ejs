@@ -260,8 +260,8 @@
         }
 
         let currentPrices = {
-            monthly: <%- JSON.stringify(monthlyPrices || []) %>,
-            yearly: <%- JSON.stringify(yearlyPrices || []) %>
+            monthly: <% - JSON.stringify(monthlyPrices || []) %>,
+            yearly: <% - JSON.stringify(yearlyPrices || []) %>
         };
 
         let selectedPeriod = 'month';
@@ -329,6 +329,44 @@
                         <li>${planName}</li>
                         <li>${includePlus ? 'Plus features included' : 'Standard features'}</li>
                         <li>Cancel anytime</li>
+
+                        <% if (subscriptionInfo && subscriptionInfo.hasShop) { %>
+                            <li><b>Everything in Business Website</b></li>
+                            <li>Specialty Store & Product Pages</li>
+                            <li>Product Catalog Management</li>
+                            <li>Product Options & Variations</li>
+                            <li>Product Categories & Subcategories</li>
+                            <li>Cross-Store Tax Settings</li>
+                            <li>3rd Party Shipping Providers</li>
+                            <li>Customizable Shipping Rules</li>
+                            <li>Printable Shipping Labels</li>
+                            <li>Product SEO optimization</li>
+                            <li>Discount & Promo Codes</li>
+                            <li>Paid Memberships</li>
+                            <li>Info Management via CSV</li>
+                            <li>Custom Product Fields</li>
+                            <li>Store Search</li>
+                            <li>Abandoned Carts</li>
+                            <li>Store Login for Buyers</li>
+                            <li>...and more!</li>
+                        <% } else { %>
+                            <li>Drag & Drop Editor</li>
+                            <li>SSL Certificate</li>
+                            <li>Built-in Analytics</li>
+                            <li>On-the-Go Editing</li>
+                            <li>Amazon Cloud Hosting</li>
+                            <li>Unlimited Bandwidth</li>
+                            <li>Multi-Language Platform</li>
+                            <li>Optimized Images</li>
+                            <li>90+ Speed Ranking</li>  
+                            <li>Automatic Updates</li>
+                            <li>Automatic Backups</li>
+                            <li>Unlimited File Space</li>
+                            <li>Unlimited Pages</li>
+                            <li>SEO Recommendations</li>
+                        <% } %>
+
+                        
                     </ul>
                     <button class="subscribe-btn" onclick="subscribeToCurrentPlan()">
                         Subscribe ${selectedPeriod === 'month' ? 'Monthly' : 'Yearly'}

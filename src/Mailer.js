@@ -3,7 +3,7 @@ const ejs = require('ejs');
 const path = require('path');
 
 require('dotenv').config();
-const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, FROM_EMAIL } = process.env;
+const { SMTP_HOST, SMTP_PORT, SMTP_USER, SMTP_PASS, FROM_EMAIL, ADMIN_EMAIL } = process.env;
 
 const renderToString = (tpl, data) => {
     const filePath = path.join(__dirname, 'views', `mail/${tpl}.ejs`);
@@ -40,13 +40,13 @@ class Mailer {
                 html: (await renderToString(tpl, data)),
             });
             return info;
-        } catch (e) { 
+        } catch (e) {
             console.error(e);
         }
     }
 
     async expireNotify(toEmail, name, domain) {
-        return this.sendByTpl(toEmail, "Your website will expire", "expire", {name, domain});
+        return this.sendByTpl(toEmail, "Your website will expire", "expire", { name, domain });
     }
 
     async cancelNotify(toEmail, name, domain) {
@@ -77,6 +77,21 @@ class Mailer {
         } catch (e) {
             console.error(e);
         }
+    }
+
+    async notifyAdminNewSite(data) {
+        if (!ADMIN_EMAIL) return;
+        return this.sendByTpl(ADMIN_EMAIL, '[ViiB] Новый сайт создан', 'admin/newSite', data);
+    }
+
+    async notifyAdminSubscription(data) {
+        if (!ADMIN_EMAIL) return;
+        return this.sendByTpl(ADMIN_EMAIL, '[ViiB] Оформлена подписка', 'admin/subscription', data);
+    }
+
+    async notifyAdminExpired(data) {
+        if (!ADMIN_EMAIL) return;
+        return this.sendByTpl(ADMIN_EMAIL, '[ViiB] Истекла подписка', 'admin/expired', data);
     }
 }
 

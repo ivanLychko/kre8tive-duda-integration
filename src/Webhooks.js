@@ -59,8 +59,17 @@ class Webhooks {
                 plan: `${plan}${includePlus === 'true' ? ' Plus' : ''}`,
                 amount,
                 date,
-                link: site.site_domain
+                link: site.site_default_domain || site.site_domain
             });
+
+            mailer.notifyAdminSubscription({
+                email: credentials.email,
+                name: credentials.name || credentials.email,
+                plan: `${plan}${includePlus === 'true' ? ' Plus' : ''}`,
+                amount,
+                siteName: siteInfo.siteName,
+                domain: site.site_default_domain || site.site_domain
+            }).catch(() => { });
         } catch (e) {
             console.error(e);
         }
@@ -68,11 +77,29 @@ class Webhooks {
 
     static async notificationExpire(customer, credentials, { siteId }) {
         try {
+            let email = credentials?.email;
+            let name = credentials?.name;
+            if (!email && customer) {
+                const cust = await stripe.customers.retrieve(customer).catch(() => null);
+                if (cust && !cust.deleted) {
+                    email = cust.email;
+                    name = cust.name || cust.email;
+                }
+            }
+
             const siteInfo = await Sites.findById(siteId);
             const site = await DudaWorker.getAccountBySite(siteInfo.siteName);
+            const domain = site?.site_default_domain || site?.site_domain;
 
             const mailer = new Mailer();
-            await mailer.expireNotify(credentials.email, credentials.name, site.site_domain);
+            if (email) await mailer.expireNotify(email, name || email, domain);
+
+            mailer.notifyAdminExpired({
+                email: email || '',
+                name: name || 'N/A',
+                siteName: siteInfo?.siteName || '',
+                domain
+            }).catch(() => { });
         } catch (e) {
             console.error(e);
         }
@@ -80,6 +107,16 @@ class Webhooks {
 
     static async cancel(customer, credentials, { siteId }) {
         try {
+            let email = credentials?.email;
+            let name = credentials?.name;
+            if (!email && customer) {
+                const cust = await stripe.customers.retrieve(customer).catch(() => null);
+                if (cust && !cust.deleted) {
+                    email = cust.email;
+                    name = cust.name || cust.email;
+                }
+            }
+
             const siteInfo = await Sites.findById(siteId);
             if (siteInfo) {
                 const site = await DudaWorker.getAccountBySite(siteInfo.siteName);
@@ -87,7 +124,8 @@ class Webhooks {
                 await DudaWorker.removePermisions(site.site_name);
 
                 const mailer = new Mailer();
-                await mailer.cancelNotify(credentials.email, credentials.name, site.site_domain);
+                const domain = site?.site_default_domain || site?.site_domain;
+                if (email) await mailer.cancelNotify(email, name || email, domain);
             } else {
                 console.error("Undefind siteId: " + siteId);
             }

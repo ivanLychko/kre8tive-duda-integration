@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Новый сайт</title>
+</head>
+
+<body style="margin: 0; padding: 20px; font-family: Arial, sans-serif;">
+    <h2>Новый сайт создан</h2>
+    <p><strong>Клиент:</strong>
+        <%= name %>
+    </p>
+    <p><strong>Email:</strong>
+        <%= email %>
+    </p>
+    <p><strong>Сайт:</strong>
+        <%= siteName %>
+    </p>
+    <% if (domain) { %>
+        <p><strong>Домен:</strong>
+            <%= domain %>
+        </p>
+        <% } %>
+</body>
+
+</html>

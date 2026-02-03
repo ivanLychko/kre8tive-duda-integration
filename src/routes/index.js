@@ -55,6 +55,12 @@ router.post('/create-account', cors(corsOption), async function (req, res, next)
       await mailer.newSite(data.email, data.name);
     }
 
+    mailer.notifyAdminNewSite({
+      email: data.email,
+      name: data.name,
+      siteName: site
+    }).catch(() => { });
+
     res.json({ success: 'ok' });
 
   } catch (e) {
@@ -88,8 +94,6 @@ router.get('/get-available-products', cors(corsOption), async function (req, res
 
     // Получаем доступные продукты
     const availableProducts = getAvailableProducts(subscriptionInfo, includePlus === 'true');
-    console.log('API - Available products:', availableProducts);
-    console.log('API - IncludePlus:', includePlus);
 
     // Получаем цены из Stripe
     let prices = await getStripePrices(`price`);
@@ -296,13 +300,8 @@ router.get('/publish', cors(), async function (req, res) {
     // Определяем тип подписки на основе настроек сайта
     const subscriptionInfo = determineSubscriptionType(siteInfo);
 
-    // Отладочная информация
-    console.log('Site info:', siteInfo);
-    console.log('Subscription info:', subscriptionInfo);
-
     // Получаем доступные продукты (без Plus по умолчанию для роута /publish)
     const availableProducts = getAvailableProducts(subscriptionInfo, false);
-    console.log('Available products:', availableProducts);
 
     // Получаем цены из Stripe
     let prices = await getStripePrices('price');
@@ -313,15 +312,9 @@ router.get('/publish', cors(), async function (req, res) {
       availableProducts.some(product => product.id === price.product)
     );
 
-    console.log('Filtered prices:', filteredPrices2);
-    console.log('Available product IDs:', availableProducts.map(p => p.id));
-
     // Разделяем на месячные и годовые
     const monthlyPrices2 = filteredPrices2.filter(price => price.recurring.interval === 'month');
     const yearlyPrices2 = filteredPrices2.filter(price => price.recurring.interval === 'year');
-
-    console.log('Monthly prices:', monthlyPrices2);
-    console.log('Yearly prices:', yearlyPrices2);
 
     res.render('subscription-selection', {
       monthlyPrices: monthlyPrices2,
