@@ -3,27 +3,27 @@
 
 <head>
     <meta charset="UTF-8" />
-    <title>Оформлена подписка</title>
+    <title>Subscription completed</title>
 </head>
 
 <body style="margin: 0; padding: 20px; font-family: Arial, sans-serif;">
-    <h2>Оформлена подписка</h2>
-    <p><strong>Клиент:</strong>
+    <h2>Subscription completed</h2>
+    <p><strong>Client:</strong>
         <%= name %>
     </p>
     <p><strong>Email:</strong>
         <%= email %>
     </p>
-    <p><strong>План:</strong>
+    <p><strong>Plan:</strong>
         <%= plan %>
     </p>
-    <p><strong>Сумма:</strong> $<%= amount %>
+    <p><strong>Amount:</strong> $<%= amount %>
     </p>
-    <p><strong>Сайт:</strong>
+    <p><strong>Website:</strong>
         <%= siteName %>
     </p>
     <% if (typeof domain !=='undefined' && domain) { %>
-        <p><strong>Домен:</strong>
+        <p><strong>Domain:</strong>
             <%= domain %>
         </p>
         <% } %>
