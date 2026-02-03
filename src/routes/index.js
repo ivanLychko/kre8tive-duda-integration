@@ -67,7 +67,7 @@ router.get('/success', function (req, res, next) {
 });
 
 router.get('/list-templates', cors(corsOption), async function (req, res, next) {
-  res.json(await getDataWithCahce('templates', async () => DudaWorker.getAllTemplates(['flex'])));
+  res.json(await getDataWithCache('templates', async () => DudaWorker.getAllTemplates(['flex'])));
 });
 
 router.get('/list-categories', cors(corsOption), async function (req, res, next) {
@@ -177,6 +177,8 @@ router.post('/update-plan', async function (req, res) {
   }
 
   const siteRecord = await Sites.findOne({ siteName: req.body.sitename }).exec();
+
+  let needsPay = true;
 
   if (siteRecord && siteRecord.stripeCustomer) {
     needsPay = false;

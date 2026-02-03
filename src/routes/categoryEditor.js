@@ -1,11 +1,11 @@
 const DudaWorker = require("../Duda");
 const express = require('express');
-const { getDataWithCahce } = require("../functions");
+const { getDataWithCache } = require("../functions");
 const router = express.Router();
 const ModelCategory = require('../Models/Categories');
 
 router.get('/', async function (req, res, next) {
-    const templates = await getDataWithCahce('templates', async () => DudaWorker.getAllTemplates(['flex']));
+    const templates = await getDataWithCache('templates', async () => DudaWorker.getAllTemplates(['flex']));
     const categories = await ModelCategory.find({}).sort({ createdAt: -1 });
 
     const data = { templates, categories };
@@ -44,8 +44,8 @@ router.post('/remove-tpl-from-category', async function (req, res, next) {
     const { categoryId, tplId } = req.body;
 
     const category = await ModelCategory.findById(categoryId);
-    if (category.templates.indexOf(tplId) > -1) { 
- 
+    if (category.templates.indexOf(tplId) > -1) {
+
         category.templates.splice(category.templates.indexOf(tplId), 1);
         await ModelCategory.findByIdAndUpdate(categoryId, category);
 

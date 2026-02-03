@@ -1,7 +1,7 @@
 const DudaWorker = require('./Duda');
 const Mailer = require('./Mailer');
 const Sites = require('./Models/Sites');
-const { getDataWithCahce } = require('./functions');
+const { getDataWithCache } = require('./functions');
 
 require('dotenv').config();
 const {
@@ -23,7 +23,7 @@ class Webhooks {
                 product = subscription.plan.product;
             }
 
-            let price = (await getDataWithCahce('price', async () => (await Promise.all(
+            let price = (await getDataWithCache('price', async () => (await Promise.all(
                 (await stripe.prices.list({ type: 'recurring', active: true })).data
                     .map(async item => {
                         const p = (await stripe.products.retrieve(item.product));

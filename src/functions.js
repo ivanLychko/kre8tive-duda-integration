@@ -7,7 +7,7 @@ function hash(str) {
     return createHash('sha256').update(str).digest('hex');
 }
 
-async function getDataWithCahce(cacheFilePath, fnData = () => [], timeMinutes = 60) {
+async function getDataWithCache(cacheFilePath, fnData = () => [], timeMinutes = 60) {
     const time = timeMinutes * 60 * 1000;
 
     const fullPath = path.join(__dirname, './cache/', cacheFilePath + '.json');
@@ -95,7 +95,7 @@ function getAvailableProducts(subscriptionInfo, includePlus = false) {
 async function getStripePrices(cacheKey = 'stripe_prices') {
     const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
 
-    return await getDataWithCahce(cacheKey, async () => (await Promise.all(
+    return await getDataWithCache(cacheKey, async () => (await Promise.all(
         (await stripe.prices.list({ type: 'recurring', active: true, limit: 100 })).data
             .map(async item => {
                 const product = (await stripe.products.retrieve(item.product));
@@ -108,7 +108,7 @@ async function getStripePrices(cacheKey = 'stripe_prices') {
 
 module.exports = {
     hash,
-    getDataWithCahce,
+    getDataWithCache,
     determineSubscriptionType,
     getAvailableProducts,
     getStripePrices
