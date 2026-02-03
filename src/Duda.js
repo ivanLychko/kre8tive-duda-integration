@@ -42,7 +42,13 @@ class DudaWorker {
 
     static async getAccountByEmail(email) {
         const res = await duda.accounts.get({ account_name: email })
-            .catch((err) => console.error(err));
+            .catch((err) => {
+                const code = err?.error?.error_code ?? err?.error_code;
+                if (code !== 'ResourceNotExist') {
+                    console.error(err);
+                }
+                return null;
+            });
 
         return res ? res.account_name : false;
     }
